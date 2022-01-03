@@ -4,6 +4,8 @@ import {
   ImageListItem,
   ImageListItemBar,
   Typography,
+  Backdrop,
+  CircularProgress,
 } from '@mui/material'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
@@ -13,13 +15,17 @@ import { Post } from '../../types/post'
 
 const List = () => {
   const [posts, setPosts] = useState<Post[]>([])
+  const [isWaiting, setIsWaiting] = useState(false)
 
   const fetchPosts = async () => {
+    setIsWaiting(true)
     try {
       const result = await apis.getPosts()
       setPosts(result.data.reverse())
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsWaiting(false)
     }
   }
 
@@ -42,6 +48,9 @@ const List = () => {
           </ImageListItem>
         ))}
       </ImageList>
+      <Backdrop open={isWaiting} style={{ zIndex: 99 }}>
+        <CircularProgress />
+      </Backdrop>
     </Fragment>
   )
 }
