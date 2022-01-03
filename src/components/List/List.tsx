@@ -7,6 +7,7 @@ import {
   Backdrop,
   CircularProgress,
 } from '@mui/material'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
@@ -39,7 +40,7 @@ const List = () => {
         {posts.map((post) => (
           <ImageListItem key={post._id}>
             <Zoom>
-              <img src={post.imageLink} loading="lazy" style={{ width: '100%' }} />
+              <LazyLoadImage src={post.imageLink} style={{ width: '100%' }} />
             </Zoom>
             <ImageListItemBar
               title={<Typography variant="h6">{post.title}</Typography>}
